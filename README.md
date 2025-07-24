@@ -1,5 +1,6 @@
 ### Loop Extrusion Simulations
 Before starting, install the envorinment with `conda env create -f env.yml`
+Clone this repository to your local machine with `git clone`
 #### 1-D Trajectory
 1. Navigate to and open `1D_polychrom_simulation.py`
 2. Change the following variables if necessary:
