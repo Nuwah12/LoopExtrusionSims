@@ -22,7 +22,7 @@ Clone this repository to your local machine with `git clone`
 #### 3-D trajectory
 1. The outputs from the 1-D trajectory are now in `1D_trajectory/trajectory`. **You do not need to move this.**
 2. Navigate from `1D_trajectory/` to `3D_simulation/`
-3. Execute `python3 3D_polychrom_simulation`. This will take ~45 minutes to complete.
+3. Execute `python3 3D_polychrom_simulation`. This will take ~45 minutes to complete on an NVIDIA T400 4GB GPU.
 4. After this completes, you will have the directory `3D_simulation/sim_outs/`
 
 #### Making contact matrix
