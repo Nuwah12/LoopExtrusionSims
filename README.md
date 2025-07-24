@@ -12,9 +12,9 @@ Clone this repository to your local machine with `git clone`
     - Blocking region arrays (lines 55-60): An array of integers defining where blockers should be placed. The lines look like this: `np.arange(181+front_buffer, 185+front_buffer)`, where the blocking region runs from 181 to 185.
     - Blocking region dictionary `blockingRegions` (line 65): Maps a name for each blocking region to the array containing the monomers it spans. If we want the blocking region to be bidirectional, we add `"_EBF1"` to the end of the name.
     - `cap` and `rel` (lines 68-91): Capture and release probabilities $[0..1]$. Each blocking region has one of each, and are denoted by the `if` statements.
-    - Cohesin _loading_ regions (lines 137-142): Only for loading scenario; similar to the blocking regions, we set lower and upper bounds in the arrays.
-    - `loading_regions` (line 148) can be set to wither an array of all possible loading regions (again, _only for loading scenario_), or set to just the array with coordinates spanning the entire array (_blocking scenario only_)
-    - `loading_region_freqs` (line 151): One integer per loading region denoting how many LEFs should be loaded there. In _blocking_, this is a single number.
+    - Cohesin _loading_ regions (lines 138-143): Only for loading scenario; similar to the blocking regions, we set lower and upper bounds in the arrays.
+    - `loading_regions` (line 149) can be set to wither an array of all possible loading regions (again, _only for loading scenario_), or set to just the array with coordinates spanning the entire array (_blocking scenario only_)
+    - `loading_region_freqs` (line 152): One integer per loading region denoting how many LEFs should be loaded there. In _blocking_, this is a single number.
   
   3. Save changes and quit
   4. Execute `python3 1D_polychrom_simulation`. This should take about 10-20 seconds.
