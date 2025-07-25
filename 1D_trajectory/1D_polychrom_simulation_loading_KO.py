@@ -18,7 +18,7 @@ def main():
     ### Translocating and writing trajectories using custom extruder class
     # Basic parameters for simulation run
     ###############################################################
-    RUN_NAME = "MYC_Granta519_WT_EBF1Blocking_randomLoading" #### Define a name for this simulation run, sowe can save parameters
+    RUN_NAME = "MYC_Granta519_KO_EBF1Loading" #### Define a name for this simulation run, sowe can save parameters
     N1_pol = 900 # Size of 1 system
     front_buffer = 10 # 'buffer' zone for poltting purposes
     end_buffer = 10
@@ -51,15 +51,15 @@ def main():
     #####################################################################
     E1_blockingRegion_1 = np.arange(181+front_buffer, 185+front_buffer) # Boundary, not EBF1 involved
     E1_blockingRegion_2 = np.arange(210+front_buffer, 220+front_buffer) # E1, EBF1 involved (50, STRONG)
-    E2_blockingRegion = np.arange(304+front_buffer, 310+front_buffer) # E2, EBF1 involved (15, MED)
-    B3_blockingRegion_forward = np.arange(553+front_buffer, 578+front_buffer) # B3+, EBF1 involved (8, WEAK)
-    #B3_blockingRegion_reverse = np.arange(576+front_buffer, 578+front_buffer) # B3-, not EBF1 involved
+    E2_blockingRegion = np.arange(304+front_buffer, 307+front_buffer) # E2, EBF1 involved (15, MED)
+    B3_blockingRegion_forward = np.arange(568+front_buffer, 570+front_buffer) # B3+, EBF1 involved (8, WEAK)
+    B3_blockingRegion_reverse = np.arange(576+front_buffer, 578+front_buffer) # B3-, not EBF1 involved
     MYC_blockingRegion = np.arange(737+front_buffer, 742+front_buffer) # MYC, not EBF1 involved
 
     ###########################################################################
     ### Any EBF1-associated blockers below should have '_EBF1' as the suffix in the keys of the dictionary below
     ###########################################################################
-    blockingRegions = {'E1_1':E1_blockingRegion_1, 'E1_2_EBF1':E1_blockingRegion_2, 'E2_EBF1':E2_blockingRegion, 'B3_EBF1': B3_blockingRegion_forward, 'MYC':MYC_blockingRegion}
+    blockingRegions = {'E1_1':E1_blockingRegion_1, 'E1_2':E1_blockingRegion_2, 'E2':E2_blockingRegion, 'B3+': B3_blockingRegion_forward, 'B3-':B3_blockingRegion_reverse, 'MYC':MYC_blockingRegion}
 
     ### Assign each blocking region its capture and release probabilities (0<=x<=1)
     for br in blockingRegions:
@@ -69,19 +69,19 @@ def main():
             rel = 0.001 # probability of a monomer releasing a LEF, typically much lower than capture prob. 
         # E1 blocker
         if 'E1_2' in br: # EBF1 involved
-            cap = 0.55
-            rel = 0.05
+            cap = 0.5
+            rel = 0.03
         # E2 blocker
         elif 'E2' in br: # EBF1 involved
-            cap = 0.25
-            rel = 0.075
+            cap = 0.35
+            rel = 0.03
         # B3 blocker
-        elif 'B3' in br: # EBF1 involved
-            cap = 0.1
-            rel = 0.1
-        #elif 'B3+' in br:
-        #    cap = 0.2
-        #    rel = 0.03
+        elif 'B3-' in br: # EBF1 involved
+            cap = 0.35
+            rel = 0.03
+        elif 'B3+' in br:
+            cap = 0.2
+            rel = 0.03
         # MYC promoter blocker
         elif br == 'MYC': # Unchanged
             cap = 0.75
@@ -139,13 +139,13 @@ def main():
     wholePolymer_loading = [0+front_buffer, N1-(end_buffer)-1] # Entire polymer
 
     ### List of loading regions for EBF1 loading
-    #loading_regions = [E1_loading_1, E1_loading_2, E2_loading, B3_loading_1, MYC_loading, wholePolymer_loading]
+    loading_regions = [E1_loading_1, E1_loading_2, E2_loading, B3_loading_1, MYC_loading, wholePolymer_loading]
 
     ### List of loading regions for EBF1 blocking (just the entire polymer)
-    loading_regions = [wholePolymer_loading]
+    #loading_regions = [wholePolymer_loading]
 
     ### Number of cohesins per loading region (each index is associated with the corresponding index of the loading_regions list)
-    loading_region_freqs = [14]
+    loading_region_freqs = [1,1,1,1,1,4]
     LEFNum = np.sum(loading_region_freqs)
 
     ### Beyond this point, you need not change any variable values.
@@ -188,7 +188,7 @@ def main():
         )
 
     ### Write parameters to text file
-    with open('/mnt/data0/noah/analysis/CodeWorkbench/imaging/ORCA/polymer_sims/3D_simulation/{}_params.txt'.format(RUN_NAME),'w+') as pf:
+    with open('{}_params.txt'.format(RUN_NAME),'w+') as pf:
         pf.write("N: {}\n1D Steps: {}\nTotal LEF: {}\nLoading Regions: {} LEFs per loading region: {}\n Lifetime: {} Lifetime stalled: {}\nBlocking Regions: {}\nLeft cap: {}, Left rel: {}\nRight cap: {}, Right rel: {}".format(
                                                                                                 N1,steps,LEFNum,
                                                                                                 REGIONS_INDEX,loading_region_freqs,
