@@ -19,7 +19,7 @@ def main():
     ### Translocating and writing trajectories using custom extruder class
     # Basic parameters for simulation run
     ###############################################################
-    RUN_NAME = "MYC_Granta519_KO_EBF1Blocking" #### Define a name for this simulation run, sowe can save parameters
+    RUN_NAME = "MYC_Granta519_WT_EBF1Blocking" #### Define a name for this simulation run, sowe can save parameters
     N1_pol = 900 # Size of 1 system
     front_buffer = 10 # 'buffer' zone for poltting purposes
     end_buffer = 10
@@ -51,8 +51,8 @@ def main():
     # Each call below defines the blocking region as (low, high), EXCLUSIVE on the upper bound
     #####################################################################
     E1_blockingRegion_1 = np.arange(181+front_buffer, 185+front_buffer) # Boundary, not EBF1 involved
-    E1_blockingRegion_2 = np.arange(210+front_buffer, 217+front_buffer) # E1, EBF1 involved (50, STRONG)
-    E2_blockingRegion = np.arange(304+front_buffer, 307+front_buffer) # E2, EBF1 involved (15, MED)
+    E1_blockingRegion_2 = np.arange(210+front_buffer, 220+front_buffer) # E1, EBF1 involved (50, STRONG)
+    E2_blockingRegion = np.arange(304+front_buffer, 310+front_buffer) # E2, EBF1 involved (15, MED)
     B3_blockingRegion_forward = np.arange(558+front_buffer, 578+front_buffer) # B3+, EBF1 involved (8, WEAK)
     #B3_blockingRegion_reverse = np.arange(576+front_buffer, 578+front_buffer) # B3-, not EBF1 involved
     MYC_blockingRegion = np.arange(737+front_buffer, 742+front_buffer) # MYC, not EBF1 involved
@@ -85,7 +85,7 @@ def main():
         #    rel = 0.03
         # MYC promoter blocker
         elif br == 'MYC': # Unchanged
-            cap = 0.45
+            cap = 0.75
             rel = 0.05
         # Now, also according to the dictionary key, we assign the directional blockers with the previously defined probabilities
         if 'EBF1' in br: # IF EBF1 blocker, bidirectional (in the EBF1 loading system, and the perturbed EBF1 blocking system, this will never happen)
@@ -146,7 +146,7 @@ def main():
     loading_regions = [wholePolymer_loading]
 
     ### Number of cohesins per loading region (each index is associated with the corresponding index of the loading_regions list)
-    loading_region_freqs = [14]
+    loading_region_freqs = [15]
     LEFNum = np.sum(loading_region_freqs)
 
     ### Beyond this point, you need not change any variable values.
