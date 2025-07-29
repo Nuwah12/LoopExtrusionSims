@@ -9,7 +9,6 @@
 from extruder import Extruder
 import numpy as np
 from pathlib import Path
-import seaborn as sns
 import h5py
 import sys
 import os
