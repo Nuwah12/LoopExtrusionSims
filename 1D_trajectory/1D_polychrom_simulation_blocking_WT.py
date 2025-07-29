@@ -52,7 +52,7 @@ def main():
     E1_blockingRegion_1 = np.arange(181+front_buffer, 185+front_buffer) # Boundary, not EBF1 involved
     E1_blockingRegion_2 = np.arange(210+front_buffer, 220+front_buffer) # E1, EBF1 involved (50, STRONG)
     E2_blockingRegion = np.arange(304+front_buffer, 310+front_buffer) # E2, EBF1 involved (15, MED)
-    B3_blockingRegion_forward = np.arange(558+front_buffer, 578+front_buffer) # B3+, EBF1 involved (8, WEAK)
+    B3_blockingRegion_forward = np.arange(553+front_buffer, 578+front_buffer) # B3+, EBF1 involved (8, WEAK)
     #B3_blockingRegion_reverse = np.arange(576+front_buffer, 578+front_buffer) # B3-, not EBF1 involved
     MYC_blockingRegion = np.arange(737+front_buffer, 742+front_buffer) # MYC, not EBF1 involved
 
@@ -85,7 +85,7 @@ def main():
         # MYC promoter blocker
         elif br == 'MYC': # Unchanged
             cap = 0.75
-            rel = 0.05
+            rel = 0.001
         # Now, also according to the dictionary key, we assign the directional blockers with the previously defined probabilities
         if 'EBF1' in br: # IF EBF1 blocker, bidirectional (in the EBF1 loading system, and the perturbed EBF1 blocking system, this will never happen)
             for loc in blockingRegions[br]:
